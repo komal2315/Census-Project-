@@ -1,4 +1,5 @@
-# Census-Project-
+# Census-Project
+``` sql
 select * from Census.dbo.dataset1;
 
 Select * from Census.dbo.dataset2;
@@ -144,12 +145,14 @@ Select total_area/previous as previous_Area_pp,total_area/current_pop as Current
 (Select round(sum(Previous_census),0) as previous, round(sum(current_population),0) as current_pop, Sum(Area) as total_area from
 (Select c.District,c.State, (c.Population/(1 + c.Growth_rate)) as Previous_census , Population as current_population, c.Area_km2 as Area from
 (Select a.District,a.State, a.Growth as Growth_rate ,b.Population,b.Area_km2 from Census.dbo.dataset1 as a
-join Census.dbo.dataset2 as b on a.District = b.District) as c)as d)as e
+join Census.dbo.dataset2 as b on a.District = b.District) as c)as d)as e;
 
 ----Window Functions
 ----Output top 3 district from each state with highest literacy rate
 
 Select * from (
 Select State, District, literacy, rank() over (partition by State order by literacy Desc) as Rank_ from Census.dbo.dataset1) a
-where Rank_ in (1,2,3)
+where Rank_ in (1,2,3);
+```
+
 
